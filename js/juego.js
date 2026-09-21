@@ -617,34 +617,41 @@ if (Math.random() < 0.03) {
     }
 }
 
-    // movimiento segun la direccion
     if (direccionBrocoli === "derecha") {
-        nuevaX += velocidadBrocoli;
+    nuevaX += velocidadBrocoli;
 
+    if (!enemigosVulnerables) {
         brocoli.style.backgroundImage =
             'url("assets/sprites/brocoli-derecha.png")';
     }
+}
 
-    if (direccionBrocoli === "izquierda") {
-        nuevaX -= velocidadBrocoli;
+if (direccionBrocoli === "izquierda") {
+    nuevaX -= velocidadBrocoli;
 
+    if (!enemigosVulnerables) {
         brocoli.style.backgroundImage =
             'url("assets/sprites/brocoli-izquierda.png")';
     }
+}
 
-    if (direccionBrocoli === "arriba") {
-        nuevaY -= velocidadBrocoli;
+if (direccionBrocoli === "arriba") {
+    nuevaY -= velocidadBrocoli;
 
+    if (!enemigosVulnerables) {
         brocoli.style.backgroundImage =
             'url("assets/sprites/brocoli-espalda.png")';
     }
+}
 
-    if (direccionBrocoli === "abajo") {
-        nuevaY += velocidadBrocoli;
+if (direccionBrocoli === "abajo") {
+    nuevaY += velocidadBrocoli;
 
+    if (!enemigosVulnerables) {
         brocoli.style.backgroundImage =
             'url("assets/sprites/brocoli-frente.png")';
     }
+}
 
     const laberinto = document.getElementById("laberinto");
     const anchoLaberinto = laberinto.clientWidth;
