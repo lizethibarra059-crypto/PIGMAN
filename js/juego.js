@@ -19,7 +19,7 @@ let posicionX = 425;
 let posicionY = 420;
 
 // velocidad del personaje
-const velocidad = 5;
+let velocidad = 5;
 // direccion actual de pigman
 let direccionPigman = "arriba";
 
@@ -132,6 +132,8 @@ if (evento.key === "ArrowRight") {
     recogerHamburguesas();
     // comprobamos si pigman recogio el corazon
     recogerCorazon();
+    recogerSodas();
+    
 });
 
 // puntaje inicial
@@ -370,33 +372,40 @@ if (Math.random() < 0.03) {
     }
 }
 
-    // movimiento segun la direccion
-    if (direccionZanahoria === "derecha") {
-        nuevaX += velocidadZanahoria;
+   if (direccionZanahoria === "derecha") {
+       nuevaX += velocidadZanahoria;
 
-        zanahoria.style.backgroundImage =
-            'url("assets/sprites/zanahoria-derecha.png")';
+        if (!enemigosVulnerables) {
+            zanahoria.style.backgroundImage =
+              'url("assets/sprites/zanahoria-derecha.png")';
+        }
     }
 
     if (direccionZanahoria === "izquierda") {
         nuevaX -= velocidadZanahoria;
 
-        zanahoria.style.backgroundImage =
-            'url("assets/sprites/zanahoria-izquierda.png")';
+        if (!enemigosVulnerables) {
+            zanahoria.style.backgroundImage =
+               'url("assets/sprites/zanahoria-izquierda.png")';
+        }
     }
 
     if (direccionZanahoria === "arriba") {
         nuevaY -= velocidadZanahoria;
 
-        zanahoria.style.backgroundImage =
-            'url("assets/sprites/zanahoria-espalda.png")';
+        if (!enemigosVulnerables) {
+           zanahoria.style.backgroundImage =
+             'url("assets/sprites/zanahoria-espalda.png")';
+        }
     }
 
     if (direccionZanahoria === "abajo") {
         nuevaY += velocidadZanahoria;
 
-        zanahoria.style.backgroundImage =
-            'url("assets/sprites/zanahoria-frente.png")';
+        if (!enemigosVulnerables) {
+           zanahoria.style.backgroundImage =
+             'url("assets/sprites/zanahoria-frente.png")';
+        }
     }
 
     const laberinto = document.getElementById("laberinto");

@@ -402,6 +402,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     z-index: 5;
+    animation: animacionSoda 1.5s ease-in-out infinite;
 }
 
 /* posiciones provisionales */
@@ -496,4 +497,18 @@ body {
     background-size: 100% auto;
     background-repeat: repeat-y;
     background-position: center;
+}
+/* animacion de las sodas */
+@keyframes animacionSoda {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-5px) rotate(180deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(360deg);
+    }
 }
