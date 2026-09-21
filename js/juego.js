@@ -1164,45 +1164,48 @@ if (Math.random() < 0.03) {
 }
 
 
-    // movimiento hacia la derecha
     if (direccionLechuga === "derecha") {
 
-        nuevaX += velocidadLechuga;
+    nuevaX += velocidadLechuga;
 
+    if (!enemigosVulnerables) {
         lechuga.style.backgroundImage =
             'url("assets/sprites/lechuga-derecha.png")';
     }
+}
 
+// movimiento hacia la izquierda
+if (direccionLechuga === "izquierda") {
 
-    // movimiento hacia la izquierda
-    if (direccionLechuga === "izquierda") {
+    nuevaX -= velocidadLechuga;
 
-        nuevaX -= velocidadLechuga;
-
+    if (!enemigosVulnerables) {
         lechuga.style.backgroundImage =
             'url("assets/sprites/lechuga-izquierda.png")';
     }
+}
 
+// movimiento hacia arriba
+if (direccionLechuga === "arriba") {
 
-    // movimiento hacia arriba
-    if (direccionLechuga === "arriba") {
+    nuevaY -= velocidadLechuga;
 
-        nuevaY -= velocidadLechuga;
-
+    if (!enemigosVulnerables) {
         lechuga.style.backgroundImage =
             'url("assets/sprites/lechuga-espalda.png")';
     }
+}
 
+// movimiento hacia abajo
+if (direccionLechuga === "abajo") {
 
-    // movimiento hacia abajo
-    if (direccionLechuga === "abajo") {
+    nuevaY += velocidadLechuga;
 
-        nuevaY += velocidadLechuga;
-
+    if (!enemigosVulnerables) {
         lechuga.style.backgroundImage =
             'url("assets/sprites/lechuga-frente.png")';
     }
-
+}
 
     const laberinto = document.getElementById("laberinto");
 
