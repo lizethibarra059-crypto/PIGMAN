@@ -6,6 +6,7 @@ const pantallaInicio = document.querySelector(".juego");
 const pantallaJuego = document.getElementById("pantalla-juego");
 // musica de fondo
 const musicaFondo = document.getElementById("musica-fondo");
+const sonidoPerderVida = document.getElementById("sonido-perder-vida");
 botonIniciar.addEventListener("click", function() {
     pantallaInicio.style.display = "none";
     pantallaJuego.style.display = "block";
@@ -133,15 +134,14 @@ if (evento.key === "ArrowRight") {
     // comprobamos si pigman recogio el corazon
     recogerCorazon();
     recogerSodas();
-    
 });
 
 // puntaje inicial
 let puntos = 0;
-
 // vidas iniciales
 let vidas = 3;
-
+// evita perder varias vidas al mismo tiempo
+let pigmanPerdiendoVida = false;
 // funcion para perder una vida
 function perderVida() {
 
@@ -152,7 +152,93 @@ function perderVida() {
 
     console.log("vidas: " + vidas);
 }
+// comprueba si pigman toca a un enemigo
+function comprobarColisionEnemigos() {
 
+    const pigman = document.getElementById("pigman");
+    const enemigos = document.querySelectorAll(".enemigo");
+
+    const pigmanRect = pigman.getBoundingClientRect();
+
+    enemigos.forEach(function(enemigo) {
+
+        const enemigoRect = enemigo.getBoundingClientRect();
+
+        if (
+            pigmanRect.right > enemigoRect.left &&
+            pigmanRect.left < enemigoRect.right &&
+            pigmanRect.bottom > enemigoRect.top &&
+            pigmanRect.top < enemigoRect.bottom
+        ) {
+
+            if (!enemigosVulnerables && !pigmanPerdiendoVida) {
+
+                pigmanPerdiendoVida = true;
+                // pausamos la musica mientras pigman pierde la vida
+                musicaFondo.pause();
+                // reproducimos el sonido de perder una vida
+                sonidoPerderVida.currentTime = 0;
+                sonidoPerderVida.play();
+                // ocultamos a pigman mientras pierde la vida
+                pigman.style.display = "none";
+
+                perderVida();
+
+                setTimeout(function() {
+
+                   // reiniciamos las posiciones
+                   reiniciarPosiciones();
+                   // mostramos nuevamente a pigman
+                   pigman.style.display = "block";
+                   // continuamos la musica
+                   musicaFondo.play();
+
+                   // permitimos que pigman pueda volver a perder una vida
+                   pigmanPerdiendoVida = false;
+
+                }, 1000);
+            }
+        }
+    });
+}
+// reinicia las posiciones de pigman y los enemigos
+function reiniciarPosiciones() {
+
+    // posicion inicial de pigman
+    posicionX = 425;
+    posicionY = 420;
+
+    // posiciones iniciales de los enemigos
+    zanahoriaX = 300;
+    zanahoriaY = 110;
+
+    brocoliX = 370;
+    brocoliY = 110;
+
+    jitomateX = 440;
+    jitomateY = 110;
+
+    lechugaX = 510;
+    lechugaY = 110;
+    // actualizamos la posicion de pigman
+    const pigman = document.getElementById("pigman");
+
+    pigman.style.left = posicionX + "px";
+    pigman.style.top = posicionY + "px";
+
+    // actualizamos la posicion de los enemigos
+    zanahoria.style.left = zanahoriaX + "px";
+    zanahoria.style.top = zanahoriaY + "px";
+
+    brocoli.style.left = brocoliX + "px";
+    brocoli.style.top = brocoliY + "px";
+
+    jitomate.style.left = jitomateX + "px";
+    jitomate.style.top = jitomateY + "px";
+
+    lechuga.style.left = lechugaX + "px";
+    lechuga.style.top = lechugaY + "px";
+}
 // funcion para recoger el corazon
 function recogerCorazon() {
 
@@ -223,8 +309,8 @@ function recogerHamburguesas() {
 const zanahoria = document.getElementById("zanahoria");
 
 // posicion inicial de la zanahoria
-let zanahoriaX = 425;
-let zanahoriaY = 40;
+let zanahoriaX = 300;
+let zanahoriaY = 110;
 
 // velocidad de la zanahoria
 const velocidadZanahoria = 2;
@@ -443,8 +529,8 @@ setInterval(moverZanahoria, 30);
 
 // movimiento del brocoli
 const brocoli = document.getElementById("brocoli");
-let brocoliX = 200;
-let brocoliY = 250;
+let brocoliX = 370;
+let brocoliY = 110;
 // velocidad del brocoli
 const velocidadBrocoli = 2;
 // direccion inicial
@@ -690,8 +776,8 @@ setInterval(moverBrocoli, 30);
 const jitomate = document.getElementById("jitomate");
 
 // posicion inicial del jitomate
-let jitomateX = 425;
-let jitomateY = 400;
+let jitomateX = 440;
+let jitomateY = 110;
 
 // velocidad del jitomate
 const velocidadJitomate = 2;
@@ -969,8 +1055,8 @@ setInterval(moverJitomate, 30);
 const lechuga = document.getElementById("lechuga");
 
 // posicion inicial de la lechuga
-let lechugaX = 425;
-let lechugaY = 300;
+let lechugaX = 510;
+let lechugaY = 110;
 
 // velocidad de la lechuga
 const velocidadLechuga = 2;
@@ -1243,7 +1329,12 @@ if (direccionLechuga === "abajo") {
     lechuga.style.left = lechugaX + "px";
     lechuga.style.top = lechugaY + "px";
 }
-
-
 // hacemos que la lechuga se mueva
 setInterval(moverLechuga, 30);
+
+// comprobamos constantemente si un enemigo toca a pigman
+setInterval(function() {
+
+    comprobarColisionEnemigos();
+
+}, 30);
