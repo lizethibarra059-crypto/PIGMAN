@@ -870,43 +870,48 @@ if (Math.random() < 0.03) {
 
 
     // movimiento hacia la derecha
-    if (direccionJitomate === "derecha") {
+if (direccionJitomate === "derecha") {
 
-        nuevaX += velocidadJitomate;
+    nuevaX += velocidadJitomate;
 
+    if (!enemigosVulnerables) {
         jitomate.style.backgroundImage =
             'url("assets/sprites/jitomate-derecha.png")';
     }
+}
 
+// movimiento hacia la izquierda
+if (direccionJitomate === "izquierda") {
 
-    // movimiento hacia la izquierda
-    if (direccionJitomate === "izquierda") {
+    nuevaX -= velocidadJitomate;
 
-        nuevaX -= velocidadJitomate;
-
+    if (!enemigosVulnerables) {
         jitomate.style.backgroundImage =
             'url("assets/sprites/jitomate-izquierda.png")';
     }
+}
 
+// movimiento hacia arriba
+if (direccionJitomate === "arriba") {
 
-    // movimiento hacia arriba
-    if (direccionJitomate === "arriba") {
+    nuevaY -= velocidadJitomate;
 
-        nuevaY -= velocidadJitomate;
-
+    if (!enemigosVulnerables) {
         jitomate.style.backgroundImage =
             'url("assets/sprites/jitomate-espalda.png")';
     }
+}
 
+// movimiento hacia abajo
+if (direccionJitomate === "abajo") {
 
-    // movimiento hacia abajo
-    if (direccionJitomate === "abajo") {
+    nuevaY += velocidadJitomate;
 
-        nuevaY += velocidadJitomate;
-
+    if (!enemigosVulnerables) {
         jitomate.style.backgroundImage =
             'url("assets/sprites/jitomate-frente.png")';
     }
+}
 
 
     const laberinto = document.getElementById("laberinto");
