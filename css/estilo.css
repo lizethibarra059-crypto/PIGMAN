@@ -1,0 +1,499 @@
+/* diseño general de la pantalla */
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(#87ceeb 0%, #b8e6f5 65%, #7cb342 65%, #558b2f 100%);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* pantalla de inicio */
+.juego {
+    position: relative;
+
+    width: 900px;
+    height: 600px;
+
+    background-image: url("../assets/sprites/portada-pigman.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border-radius: 20px;
+    overflow: hidden;
+}
+/* ocultamos los textos porque ya vienen en la portada */
+.juego h1,
+.juego p {
+    display: none;
+}
+
+/* titulo del juego */
+.juego h1 {
+    font-size: 75px;
+    margin-top: 70px;
+    margin-bottom: 15px;
+    color: #8b4513;
+    text-shadow: 4px 4px 0 #f4c542;
+}
+
+/* mensaje */
+.juego p {
+    font-size: 24px;
+    color: #4d3425;
+    font-weight: bold;
+}
+
+/* boton invisible colocado sobre el boton de la portada */
+#iniciar {
+    position: absolute;
+
+    left: 50%;
+    top: 65%;
+
+    transform: translate(-50%, -50%);
+
+    width: 290px;
+    height: 90px;
+
+    background: transparent;
+    border: none;
+    color: transparent;
+
+    cursor: pointer;
+}
+
+/* efecto al pasar el mouse */
+#iniciar:hover {
+    transform: translateY(-3px);
+}
+/* pantalla donde se desarrolla el juego */
+#pantalla-juego {
+    display: none;
+    width: 900px;
+    min-height: 650px;
+    background-color: #87a94b;
+    border: 8px solid #6b3e1e;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* informacion del jugador */
+.informacion {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff8dc;
+    border: 4px solid #8b5a2b;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #4d3425;
+}
+
+#laberinto {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    /* fondo del mapa */
+    background-color: #9BCB63;
+    background-image: url("../assets/sprites/terreno.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border: 6px solid #5d3a1a;
+    box-sizing: border-box;
+}
+
+
+/* paredes del laberinto */
+.pared {
+    position: absolute;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+/* paredes principales del mapa */
+
+/* zona superior izquierda */
+.pared1 {
+    width: 260px;
+    height: 25px;
+    top: 60px;
+    left: 60px;
+}
+
+/* zona superior derecha */
+.pared2 {
+    width: 260px;
+    height: 25px;
+    top: 60px;
+    right: 60px;
+}
+
+/* pared vertical izquierda */
+.pared3 {
+    width: 25px;
+    height: 130px;
+    top: 80px;
+    left: 60px;
+}
+
+/* pared vertical derecha */
+.pared4 {
+    width: 25px;
+    height: 130px;
+    top: 80px;
+    right: 60px;
+}
+
+/* zona central izquierda */
+.pared5 {
+    width: 190px;
+    height: 25px;
+    top: 180px;
+    left: 170px;
+}
+
+/* zona central derecha */
+.pared6 {
+    width: 190px;
+    height: 25px;
+    top: 180px;
+    right: 170px;
+}
+
+/* camino vertical izquierdo */
+.pared7 {
+    width: 25px;
+    height: 85px;
+    top: 200px;
+    left: 170px;
+}
+
+/* camino vertical derecho */
+.pared8 {
+    width: 25px;
+    height: 85px;
+    top: 200px;
+    right: 170px;
+}
+
+/* zona inferior izquierda */
+.pared9 {
+    width: 260px;
+    height: 25px;
+    bottom: 85px;
+    left: 60px;
+}
+
+/* zona inferior derecha */
+.pared10 {
+    width: 260px;
+    height: 25px;
+    bottom: 85px;
+    right: 60px;
+}
+/* obstaculo vertical central izquierdo */
+.pared11 {
+    width: 25px;
+    height: 30px;
+    top: 280px;
+    left: 300px;
+}
+
+/* obstaculo vertical central derecho */
+.pared12 {
+    width: 25px;
+    height: 30px;
+    top: 280px;
+    right: 300px;
+}
+
+/* personaje principal */
+#pigman {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+
+    background-image: url("../assets/sprites/pigman-frente.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    left: 425px;
+    top: 420px;
+    z-index: 10;
+}
+
+/* enemigo zanahoria */
+#zanahoria {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+
+    background-image: url("../assets/sprites/zanahoria-frente.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    left: 425px;
+    top: 40px;
+    z-index: 10;
+}
+
+/* enemigo brocoli */
+#brocoli {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+
+    background-image: url("../assets/sprites/brocoli-frente.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    left: 200px;
+    top: 250px;
+    z-index: 10;
+}
+
+/* enemigo jitomate */
+#jitomate {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+
+    background-image: url("../assets/sprites/jitomate-frente.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    left: 425px;
+    top: 400px;
+    z-index: 10;
+}
+
+/* enemigo lechuga */
+#lechuga {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+
+    background-image: url("../assets/sprites/lechuga-frente.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    left: 425px;
+    top: 300px;
+    z-index: 10;
+}
+
+/* mini hamburguesas */
+.hamburguesa {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-image: url("../assets/sprites/hamburguesa.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+}
+
+/* posiciones provisionales */
+.hamburguesa1 {
+    left: 80px;
+    top: 60px;
+}
+
+.hamburguesa2 {
+    left: 250px;
+    top: 60px;
+}
+
+.hamburguesa3 {
+    left: 600px;
+    top: 60px;
+}
+
+.hamburguesa4 {
+    left: 100px;
+    top: 220px;
+}
+
+.hamburguesa5 {
+    left: 500px;
+    top: 220px;
+}
+
+.hamburguesa6 {
+    left: 750px;
+    top: 220px;
+}
+
+.hamburguesa7 {
+    left: 250px;
+    top: 400px;
+}
+
+.hamburguesa8 {
+    left: 600px;
+    top: 400px;
+}
+/* nuevas posiciones de hamburguesas */
+.hamburguesa9 {
+    left: 80px;
+    top: 150px;
+}
+
+.hamburguesa10 {
+    left: 400px;
+    top: 100px;
+}
+
+.hamburguesa11 {
+    left: 800px;
+    top: 120px;
+}
+
+.hamburguesa12 {
+    left: 200px;
+    top: 300px;
+}
+
+.hamburguesa13 {
+    left: 400px;
+    top: 300px;
+}
+
+.hamburguesa14 {
+    left: 700px;
+    top: 320px;
+}
+
+.hamburguesa15 {
+    left: 80px;
+    top: 430px;
+}
+
+.hamburguesa16 {
+    left: 800px;
+    top: 430px;
+}
+
+/* sodas */
+.soda {
+    position: absolute;
+    width: 22px;
+    height: 30px;
+    background-image: url("../assets/sprites/soda.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+}
+
+/* posiciones provisionales */
+.soda1 {
+    left: 150px;
+    top: 110px;
+}
+
+.soda2 {
+    left: 700px;
+    top: 180px;
+}
+
+.soda3 {
+    left: 150px;
+    top: 350px;
+}
+
+.soda4 {
+    left: 700px;
+    top: 400px;
+}
+/* pizzas */
+.pizza {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-image: url("../assets/sprites/pizza.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+}
+
+/* posiciones provisionales */
+.pizza1 {
+    left: 350px;
+    top: 70px;
+}
+
+.pizza2 {
+    left: 550px;
+    top: 170px;
+}
+
+.pizza3 {
+    left: 350px;
+    top: 350px;
+}
+
+.pizza4 {
+    left: 550px;
+    top: 430px;
+}
+
+/* corazon para recuperar vida */
+.corazon {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+
+    background-image: url("../assets/sprites/corazon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    left: 425px;
+    top: 250px;
+    z-index: 5;
+}
+
+/* cercas horizontales */
+.pared1,
+.pared2,
+.pared5,
+.pared6,
+.pared9,
+.pared10 {
+    background-image: url("../assets/sprites/cerca.png");
+    background-size: auto 100%;
+    background-repeat: repeat-x;
+    background-position: center;
+}
+/* cercas verticales */
+.pared3,
+.pared4,
+.pared7,
+.pared8,
+.pared11,
+.pared12 {
+    background-image: url("../assets/sprites/cerca-vertical.png");
+    background-size: 100% auto;
+    background-repeat: repeat-y;
+    background-position: center;
+}

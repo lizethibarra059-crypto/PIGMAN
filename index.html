@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIGMAN</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+
+    <!-- pantalla principal -->
+    <div class="juego">
+
+        <h1>PIGMAN</h1>
+
+        <p>¡Prepárate para comenzar!</p>
+
+        <button id="iniciar">INICIAR JUEGO</button>
+
+    </div>
+
+    <!-- area donde estara el juego -->
+    <div id="pantalla-juego">
+
+        <div class="informacion">
+            <span id="marcador">puntos: 0</span>
+            <span id="vidas">vidas: 3</span>
+        </div>
+
+        <div id="laberinto">
+          <!-- personaje principal -->
+          <div id="pigman"></div>
+
+          <!-- enemigo zanahoria -->
+          <div id="zanahoria" class="enemigo"></div>
+          <!-- enemigo brocoli -->
+          <div id="brocoli" class="enemigo"></div>
+          <!-- enemigo jitomate -->
+          <div id="jitomate" class="enemigo"></div>
+          <!-- enemigo lechuga -->
+          <div id="lechuga" class="enemigo"></div>
+
+          <!-- mini hamburguesas -->
+          <div class="hamburguesa hamburguesa1"></div>
+          <div class="hamburguesa hamburguesa2"></div>
+          <div class="hamburguesa hamburguesa3"></div>
+          <div class="hamburguesa hamburguesa4"></div>
+          <div class="hamburguesa hamburguesa5"></div>
+          <div class="hamburguesa hamburguesa6"></div>
+          <div class="hamburguesa hamburguesa7"></div>
+          <div class="hamburguesa hamburguesa8"></div>
+          <div class="hamburguesa hamburguesa9"></div>
+          <div class="hamburguesa hamburguesa10"></div>
+          <div class="hamburguesa hamburguesa11"></div>
+          <div class="hamburguesa hamburguesa12"></div>
+          <div class="hamburguesa hamburguesa13"></div>
+          <div class="hamburguesa hamburguesa14"></div>
+          <div class="hamburguesa hamburguesa15"></div>
+          <div class="hamburguesa hamburguesa16"></div>
+
+          <!-- sodas -->
+          <div class="soda soda1"></div>
+          <div class="soda soda2"></div>
+          <div class="soda soda3"></div>
+          <div class="soda soda4"></div>
+
+          <!-- pizzas -->
+          <div class="pizza pizza1"></div>
+          <div class="pizza pizza2"></div>
+          <div class="pizza pizza3"></div>
+          <div class="pizza pizza4"></div>
+
+          <!-- corazon para recuperar vida -->
+          <div id="corazon" class="corazon"></div>
+
+          <!-- paredes del mapa -->
+          <div class="pared pared1"></div>
+          <div class="pared pared2"></div>
+          <div class="pared pared3"></div>
+          <div class="pared pared4"></div>
+          <div class="pared pared5"></div>
+          <div class="pared pared6"></div>
+          <div class="pared pared7"></div>
+          <div class="pared pared8"></div>
+          <div class="pared pared9"></div>
+          <div class="pared pared10"></div>
+          <div class="pared pared11"></div>
+          <div class="pared pared12"></div>
+        </div>
+
+    </div>
+    <!-- musica del juego -->
+      <audio id="musica-fondo" loop>
+          <source src="assets/musica/musica-pigman.mp3" type="audio/mpeg">
+      </audio>
+      
+    <script src="js/juego.js"></script>
+
+</body>
+
+</html>
