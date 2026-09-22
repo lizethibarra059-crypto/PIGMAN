@@ -142,15 +142,28 @@ let puntos = 0;
 let vidas = 3;
 // evita perder varias vidas al mismo tiempo
 let pigmanPerdiendoVida = false;
-// funcion para perder una vida
+// indica si la partida termino
+let juegoTerminado = false;
 function perderVida() {
+
+    // si el juego ya termino no quitamos mas vidas
+    if (juegoTerminado) return;
 
     vidas--;
 
-    // actualizamos el marcador
     document.getElementById("vidas").textContent = "vidas: " + vidas;
 
     console.log("vidas: " + vidas);
+
+    // comprobamos si pigman se quedo sin vidas
+    if (vidas <= 0) {
+        vidas = 0;
+        juegoTerminado = true;
+
+        document.getElementById("vidas").textContent = "vidas: 0";
+
+        console.log("game over");
+    }
 }
 // comprueba si pigman toca a un enemigo
 function comprobarColisionEnemigos() {
@@ -186,15 +199,25 @@ function comprobarColisionEnemigos() {
 
                 setTimeout(function() {
 
-                   // reiniciamos las posiciones
-                   reiniciarPosiciones();
+                   // si la partida termino no reiniciamos a pigman
+                   if (juegoTerminado) {
+                      musicaFondo.pause();
+                      // mostramos la pantalla de game over
+                      document.getElementById("game-over").style.display = "block";
+                      return;
+                    }
+
+                    // reiniciamos las posiciones
+                    reiniciarPosiciones();
+
                    // mostramos nuevamente a pigman
-                   pigman.style.display = "block";
+                    pigman.style.display = "block";
+
                    // continuamos la musica
-                   musicaFondo.play();
+                    musicaFondo.play();
 
                    // permitimos que pigman pueda volver a perder una vida
-                   pigmanPerdiendoVida = false;
+                    pigmanPerdiendoVida = false;
 
                 }, 1000);
             }
@@ -433,6 +456,8 @@ function elegirDireccionHaciaPigman(caminos) {
 
 // funcion para mover la zanahoria
 function moverZanahoria() {
+    // si el juego termino la zanahoria deja de moverse
+    if (juegoTerminado) return;
 
     let nuevaX = zanahoriaX;
     let nuevaY = zanahoriaY;
@@ -678,6 +703,8 @@ function elegirDireccionBrocoli(caminos) {
 
 // funcion para mover el brocoli
 function moverBrocoli() {
+    // si el juego termino el brocoli deja de moverse
+    if (juegoTerminado) return;
 
     let nuevaX = brocoliX;
     let nuevaY = brocoliY;
@@ -927,6 +954,8 @@ function elegirDireccionGamma(caminos) {
 }
 // movimiento automatico del jitomate
 function moverJitomate() {
+    // si el juego termino el jitomate deja de moverse
+    if (juegoTerminado) return;
 
     let nuevaX = jitomateX;
     let nuevaY = jitomateY;
@@ -1232,6 +1261,8 @@ function elegirDireccionDelta(caminos) {
 }
 // movimiento automatico de la lechuga
 function moverLechuga() {
+    // si el juego termino la lechuga deja de moverse
+    if (juegoTerminado) return;
 
     let nuevaX = lechugaX;
     let nuevaY = lechugaY;
