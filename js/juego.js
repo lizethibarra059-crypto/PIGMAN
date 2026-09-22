@@ -219,8 +219,10 @@ function comprobarColisionEnemigos() {
                    // mostramos nuevamente a pigman
                     pigman.style.display = "block";
 
-                   // continuamos la musica
-                    musicaFondo.play();
+                   // continuamos la musica solo si el sonido esta activado
+                   if (sonidoActivado) {
+                      musicaFondo.play();
+                    }
 
                    // permitimos que pigman pueda volver a perder una vida
                     pigmanPerdiendoVida = false;

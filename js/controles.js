@@ -6,8 +6,12 @@ const menuPausa = document.getElementById("menu-pausa");
 const botonReanudar = document.getElementById("boton-reanudar");
 // boton para reiniciar el nivel
 const botonReiniciar = document.getElementById("boton-reiniciar");
+// boton para activar o desactivar el sonido
+const botonSonido = document.getElementById("boton-sonido");
 // indica si el juego esta pausado
 let juegoPausado = false;
+// indica si el sonido esta activado
+let sonidoActivado = true;
 // pausamos el juego al presionar el boton
 botonPausa.addEventListener("click", function() {
 
@@ -24,9 +28,11 @@ botonPausa.addEventListener("click", function() {
 botonReanudar.addEventListener("click", function() {
 
     juegoPausado = false;
-    // continuamos la musica
-    musicaFondo.play();
-
+    console.log("sonido activado:", sonidoActivado);
+    // continuamos la musica solo si esta activada
+   if (sonidoActivado) {
+      musicaFondo.play();
+    }
     menuPausa.style.display = "none";
 
     console.log("juego reanudado");
@@ -68,5 +74,31 @@ botonReiniciar.addEventListener("click", function() {
    velocidad = 5;
    // reiniciamos la musica
    musicaFondo.currentTime = 0;
-   musicaFondo.play();
+
+   // reproducimos la musica solo si esta activada
+   if (sonidoActivado) {
+      musicaFondo.play();
+    }
+});
+// activamos o desactivamos la musica
+botonSonido.addEventListener("click", function() {
+
+    if (sonidoActivado) {
+
+        // apagamos la musica
+        sonidoActivado = false;
+        musicaFondo.pause();
+
+        botonSonido.textContent = "MÚSICA 🔇";
+
+    } else {
+
+        // encendemos la musica
+        sonidoActivado = true;
+        musicaFondo.play();
+
+        botonSonido.textContent = "MÚSICA 🔊";
+
+    }
+
 });
