@@ -9,6 +9,8 @@ const musicaFondo = document.getElementById("musica-fondo");
 const sonidoPerderVida = document.getElementById("sonido-perder-vida");
 // boton para volver a intentar la partida
 const botonReintentar = document.getElementById("reintentar");
+// boton para volver a la pantalla de inicio
+const botonVolverInicio = document.getElementById("volver-inicio");
 botonIniciar.addEventListener("click", function() {
     pantallaInicio.style.display = "none";
     pantallaJuego.style.display = "block";
@@ -250,6 +252,9 @@ function reiniciarPosiciones() {
 
     pigman.style.left = posicionX + "px";
     pigman.style.top = posicionY + "px";
+    // regresamos a pigman a su direccion inicial
+    direccionPigman = "arriba";
+    pigman.style.backgroundImage = 'url("assets/sprites/pigman-frente.png")';
 
     // actualizamos la posicion de los enemigos
     zanahoria.style.left = zanahoriaX + "px";
@@ -1409,4 +1414,49 @@ botonReintentar.addEventListener("click", function() {
     // reiniciamos la musica desde el principio
     musicaFondo.currentTime = 0;
     musicaFondo.play();
+});
+// volvemos a la pantalla de inicio
+botonVolverInicio.addEventListener("click", function() {
+
+    // ocultamos la pantalla del juego
+    pantallaJuego.style.display = "none";
+    // ocultamos la pantalla de game over
+    document.getElementById("game-over").style.display = "none";
+    // dejamos el juego preparado para comenzar nuevamente
+    juegoTerminado = false;
+    // permitimos que pigman vuelva a perder vidas
+    pigmanPerdiendoVida = false;
+    // regresamos las vidas a 3
+    vidas = 3;
+    // actualizamos las vidas en pantalla
+    document.getElementById("vidas").textContent = "vidas: " + vidas;
+    // regresamos los puntos a 0
+    puntos = 0;
+    // actualizamos los puntos en pantalla
+    document.getElementById("marcador").textContent = "puntos: " + puntos;
+    // hacemos aparecer nuevamente todas las hamburguesas
+    const hamburguesas = document.querySelectorAll(".hamburguesa");
+
+    hamburguesas.forEach(function(hamburguesa) {
+       hamburguesa.style.display = "block";
+    });
+    // hacemos aparecer nuevamente todas las sodas
+    const sodas = document.querySelectorAll(".soda");
+
+    sodas.forEach(function(soda) {
+      soda.style.display = "block";
+    });
+
+    // hacemos aparecer nuevamente el corazon
+    document.getElementById("corazon").style.display = "block";  
+    // reiniciamos las posiciones
+    reiniciarPosiciones();
+    // mostramos nuevamente a pigman
+    pigman.style.display = "block";   
+    // detenemos la musica y la regresamos al inicio
+    musicaFondo.pause();
+    musicaFondo.currentTime = 0;
+    // mostramos la pantalla de inicio
+    pantallaInicio.style.display = "block";
+
 });
