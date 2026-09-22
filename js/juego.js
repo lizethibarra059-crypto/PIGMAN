@@ -189,6 +189,60 @@ function comprobarColisionEnemigos() {
             pigmanRect.bottom > enemigoRect.top &&
             pigmanRect.top < enemigoRect.bottom
         ) {
+            // si los enemigos son vulnerables pigman puede comerlos
+            if (enemigosVulnerables) {
+                // si este enemigo ya fue comido no hacemos nada
+                if (enemigo.classList.contains("enemigo-comido")) {
+                  return;
+               }
+
+               // marcamos al enemigo como comido
+               enemigo.classList.add("enemigo-comido");
+               // mostramos el efecto de mordisco
+               enemigo.classList.add("enemigo-mordido");
+              // sumamos 100 puntos por comer al enemigo
+               puntos += 100;
+
+             // actualizamos el marcador
+              document.getElementById("marcador").textContent = "puntos: " + puntos;
+              // esperamos a que termine el efecto de mordisco
+              setTimeout(function() {
+
+                enemigo.style.display = "none";
+                enemigo.classList.remove("enemigo-mordido");
+
+              }, 300);
+             // hacemos que el enemigo reaparezca despues de 5 segundos
+              setTimeout(function() {
+                // regresamos al enemigo a su posicion inicial
+               if (enemigo.id === "zanahoria") {
+                  zanahoriaX = 300;
+                  zanahoriaY = 110;
+                }
+
+                if (enemigo.id === "brocoli") {
+                   brocoliX = 370;
+                   brocoliY = 110;
+                }
+
+                if (enemigo.id === "jitomate") {
+                   jitomateX = 440;
+                   jitomateY = 110;
+                }
+
+               if (enemigo.id === "lechuga") {
+                  lechugaX = 510;
+                  lechugaY = 110;
+               }
+                // permitimos que el enemigo pueda volver a ser comido
+                enemigo.classList.remove("enemigo-comido");
+                enemigo.style.display = "block";
+
+              }, 4000);
+              console.log("pigman se comio una pizza");
+
+              return;
+            }
 
             if (!enemigosVulnerables && !pigmanPerdiendoVida) {
 

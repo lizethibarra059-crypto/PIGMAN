@@ -520,3 +520,23 @@ body {
 #menu-pausa {
     display: none;
 }
+/* efecto cuando pigman se come una pizza */
+.enemigo-mordido {
+    animation: mordisco 0.3s ease;
+}
+
+@keyframes mordisco {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.5) rotate(15deg);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+
+}
