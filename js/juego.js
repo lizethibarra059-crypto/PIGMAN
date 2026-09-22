@@ -7,6 +7,8 @@ const pantallaJuego = document.getElementById("pantalla-juego");
 // musica de fondo
 const musicaFondo = document.getElementById("musica-fondo");
 const sonidoPerderVida = document.getElementById("sonido-perder-vida");
+// boton para volver a intentar la partida
+const botonReintentar = document.getElementById("reintentar");
 botonIniciar.addEventListener("click", function() {
     pantallaInicio.style.display = "none";
     pantallaJuego.style.display = "block";
@@ -1369,3 +1371,42 @@ setInterval(function() {
     comprobarColisionEnemigos();
 
 }, 30);
+// reiniciamos la partida al presionar reintentar
+botonReintentar.addEventListener("click", function() {
+
+    // permitimos que la partida vuelva a funcionar
+    juegoTerminado = false;
+    // regresamos las vidas a 3
+    vidas = 3;
+    // regresamos los puntos a 0
+    puntos = 0;
+    // actualizamos los puntos en pantalla
+    document.getElementById("marcador").textContent = "puntos: " + puntos;
+    // hacemos aparecer nuevamente todas las hamburguesas
+    const hamburguesas = document.querySelectorAll(".hamburguesa");
+
+    hamburguesas.forEach(function(hamburguesa) {
+    hamburguesa.style.display = "block";
+});
+    // hacemos aparecer nuevamente todas las sodas
+    const sodas = document.querySelectorAll(".soda");
+
+    sodas.forEach(function(soda) {
+    soda.style.display = "block";
+    // hacemos aparecer nuevamente el corazon
+    document.getElementById("corazon").style.display = "block";
+});
+
+    // actualizamos las vidas en pantalla
+    document.getElementById("vidas").textContent = "vidas: " + vidas;
+    // ocultamos la pantalla de game over
+    document.getElementById("game-over").style.display = "none";
+    reiniciarPosiciones();
+    // permitimos que pigman vuelva a perder vidas
+    pigmanPerdiendoVida = false;
+    // mostramos nuevamente a pigman
+    pigman.style.display = "block";
+    // reiniciamos la musica desde el principio
+    musicaFondo.currentTime = 0;
+    musicaFondo.play();
+});
