@@ -516,3 +516,7 @@ body {
 #game-over {
     display: none;
 }
+/* menu de pausa */
+#menu-pausa {
+    display: none;
+}

@@ -68,6 +68,8 @@ function hayColision(nuevaX, nuevaY) {
 
 // movimiento con el teclado
 document.addEventListener("keydown", function(evento) {
+        // si el juego esta pausado pigman no se puede mover
+    if (juegoPausado) return;
 
     let nuevaX = posicionX;
     let nuevaY = posicionY;
@@ -465,7 +467,8 @@ function elegirDireccionHaciaPigman(caminos) {
 function moverZanahoria() {
     // si el juego termino la zanahoria deja de moverse
     if (juegoTerminado) return;
-
+    // si el juego esta pausado no se mueve
+    if (juegoPausado) return;
     let nuevaX = zanahoriaX;
     let nuevaY = zanahoriaY;
 
@@ -712,6 +715,8 @@ function elegirDireccionBrocoli(caminos) {
 function moverBrocoli() {
     // si el juego termino el brocoli deja de moverse
     if (juegoTerminado) return;
+    // si el juego esta pausado no se mueve
+    if (juegoPausado) return;
 
     let nuevaX = brocoliX;
     let nuevaY = brocoliY;
@@ -963,6 +968,8 @@ function elegirDireccionGamma(caminos) {
 function moverJitomate() {
     // si el juego termino el jitomate deja de moverse
     if (juegoTerminado) return;
+    // si el juego esta pausado no se mueve
+    if (juegoPausado) return;
 
     let nuevaX = jitomateX;
     let nuevaY = jitomateY;
@@ -1270,6 +1277,8 @@ function elegirDireccionDelta(caminos) {
 function moverLechuga() {
     // si el juego termino la lechuga deja de moverse
     if (juegoTerminado) return;
+    // si el juego esta pausado no se mueve
+    if (juegoPausado) return;
 
     let nuevaX = lechugaX;
     let nuevaY = lechugaY;
