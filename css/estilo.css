@@ -540,3 +540,26 @@ body {
     }
 
 }
+/* portales del laberinto */
+.portal {
+    position: absolute;
+    width: 65px;
+    height: 85px;
+    background-image: url("../assets/sprites/portal.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 6;
+}
+
+/* portal izquierdo */
+#portal-izquierdo {
+    left: 5px;
+    top: 225px;
+}
+
+/* portal derecho */
+#portal-derecho {
+    right: 5px;
+    top: 225px;
+}

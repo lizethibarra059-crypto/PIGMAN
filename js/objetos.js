@@ -79,6 +79,13 @@ function crearCaminoHorizontal(inicioX, finX, posicionY, separacion) {
 function crearCaminoVertical(posicionX, inicioY, finY, separacion) {
 
     for (let y = inicioY; y <= finY; y += separacion) {
+        // dejamos espacio para los portales laterales
+       if (
+          (posicionX === 20 || posicionX === 780) &&
+          (y === 225 || y === 265)
+       ) {
+         continue;
+       }
 
         const hamburguesa = document.createElement("div");
 

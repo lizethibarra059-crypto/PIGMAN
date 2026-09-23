@@ -25,6 +25,8 @@ let posicionY = 420;
 
 // velocidad del personaje
 let velocidad = 5;
+// indica si pigman puede usar un portal
+let puedeUsarPortal = true;
 // direccion actual de pigman
 let direccionPigman = "arriba";
 
@@ -140,6 +142,7 @@ if (evento.key === "ArrowRight") {
     // comprobamos si pigman recogio el corazon
     recogerCorazon();
     recogerSodas();
+    comprobarPortales();
 });
 
 // puntaje inicial
@@ -285,6 +288,75 @@ function comprobarColisionEnemigos() {
             }
         }
     });
+}
+// comprobamos si pigman toca uno de los portales
+function comprobarPortales() {
+
+    const pigman = document.getElementById("pigman");
+    const portalIzquierdo = document.getElementById("portal-izquierdo");
+    const portalDerecho = document.getElementById("portal-derecho");
+
+    const pigmanRect = pigman.getBoundingClientRect();
+    const portalIzquierdoRect = portalIzquierdo.getBoundingClientRect();
+    const portalDerechoRect = portalDerecho.getBoundingClientRect();
+
+    // comprobamos si toca el portal izquierdo
+    if (
+        pigmanRect.right > portalIzquierdoRect.left &&
+        pigmanRect.left < portalIzquierdoRect.right &&
+        pigmanRect.bottom > portalIzquierdoRect.top &&
+        pigmanRect.top < portalIzquierdoRect.bottom &&
+        puedeUsarPortal
+    ) {
+
+        // bloqueamos los portales por un momento
+        puedeUsarPortal = false;
+
+        // enviamos a pigman al portal derecho
+        posicionX = 790;
+        posicionY = 240;
+
+        pigman.style.left = posicionX + "px";
+        pigman.style.top = posicionY + "px";
+
+        console.log("pigman salio por el portal derecho");
+
+        // permitimos volver a usar los portales
+        setTimeout(function() {
+            puedeUsarPortal = true;
+        }, 800);
+
+        return;
+    }
+
+    // comprobamos si toca el portal derecho
+    if (
+        pigmanRect.right > portalDerechoRect.left &&
+        pigmanRect.left < portalDerechoRect.right &&
+        pigmanRect.bottom > portalDerechoRect.top &&
+        pigmanRect.top < portalDerechoRect.bottom &&
+        puedeUsarPortal
+    ) {
+
+        // bloqueamos los portales por un momento
+        puedeUsarPortal = false;
+
+        // enviamos a pigman al portal izquierdo
+        posicionX = 25;
+        posicionY = 240;
+
+        pigman.style.left = posicionX + "px";
+        pigman.style.top = posicionY + "px";
+
+        console.log("pigman salio por el portal izquierdo");
+
+        // permitimos volver a usar los portales
+        setTimeout(function() {
+            puedeUsarPortal = true;
+        }, 800);
+
+        return;
+    }
 }
 // reinicia las posiciones de pigman y los enemigos
 function reiniciarPosiciones() {
