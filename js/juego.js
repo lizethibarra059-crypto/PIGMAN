@@ -7,6 +7,16 @@ const pantallaJuego = document.getElementById("pantalla-juego");
 // musica de fondo
 const musicaFondo = document.getElementById("musica-fondo");
 const sonidoPerderVida = document.getElementById("sonido-perder-vida");
+// sonido al comer una hamburguesa
+const sonidoHamburguesa = document.getElementById("sonido-hamburguesa");
+// sonido al recoger un corazon
+const sonidoCorazon = document.getElementById("sonido-corazon");
+// sonido al usar un portal
+const sonidoPortal = document.getElementById("sonido-portal");
+// sonido al comer un enemigo
+const sonidoComerEnemigo = document.getElementById("sonido-comer-enemigo");
+// sonido de game over
+const sonidoGameOver = document.getElementById("sonido-game-over");
 // boton para volver a intentar la partida
 const botonReintentar = document.getElementById("reintentar");
 // boton para volver a la pantalla de inicio
@@ -168,6 +178,12 @@ function perderVida() {
     if (vidas <= 0) {
         vidas = 0;
         juegoTerminado = true;
+        // detenemos la musica de fondo
+        musicaFondo.pause();
+
+        // reproducimos el sonido de game over
+        sonidoGameOver.currentTime = 0;
+        sonidoGameOver.play();
 
         document.getElementById("vidas").textContent = "vidas: 0";
 
@@ -201,6 +217,9 @@ function comprobarColisionEnemigos() {
 
                // marcamos al enemigo como comido
                enemigo.classList.add("enemigo-comido");
+               // reproducimos el sonido al comer al enemigo
+               sonidoComerEnemigo.currentTime = 0;
+               sonidoComerEnemigo.play();
                // mostramos el efecto de mordisco
                enemigo.classList.add("enemigo-mordido");
               // sumamos 100 puntos por comer al enemigo
@@ -311,6 +330,9 @@ function comprobarPortales() {
 
         // bloqueamos los portales por un momento
         puedeUsarPortal = false;
+        // reproducimos el sonido del portal
+        sonidoPortal.currentTime = 0;
+        sonidoPortal.play();
 
         // enviamos a pigman al portal derecho
         posicionX = 790;
@@ -340,6 +362,9 @@ function comprobarPortales() {
 
         // bloqueamos los portales por un momento
         puedeUsarPortal = false;
+        // reproducimos el sonido del portal
+        sonidoPortal.currentTime = 0;
+        sonidoPortal.play();
 
         // enviamos a pigman al portal izquierdo
         posicionX = 25;
@@ -423,7 +448,9 @@ function recogerCorazon() {
         if (vidas < 3) {
 
             vidas++;
-
+            // reproducimos el sonido del corazon
+            sonidoCorazon.currentTime = 0;
+            sonidoCorazon.play();
             corazon.style.display = "none";
 
             document.getElementById("vidas").textContent = "vidas: " + vidas;
@@ -455,7 +482,9 @@ function recogerHamburguesas() {
         ) {
 
             hamburguesa.style.display = "none";
-
+            // reproducimos el sonido de la hamburguesa
+            sonidoHamburguesa.currentTime = 0;
+            sonidoHamburguesa.play();
             puntos += 10;
 
            // actualizamos el marcador

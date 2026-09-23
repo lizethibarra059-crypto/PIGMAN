@@ -1,3 +1,5 @@
+// sonido al recoger una soda
+const sonidoSoda = document.getElementById("sonido-soda");
 // temporizador del efecto de la soda
 let temporizadorSoda;
 // indica si los enemigos son vulnerables
@@ -26,7 +28,9 @@ function recogerSodas() {
         ) {
 
             soda.style.display = "none";
-
+            // reproducimos el sonido de la soda
+            sonidoSoda.currentTime = 0;
+            sonidoSoda.play();
             console.log("pigman recogio una soda");
             // aumentamos la velocidad de pigman
             velocidad = 8;
