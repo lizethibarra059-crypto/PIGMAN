@@ -563,3 +563,7 @@ body {
     right: 5px;
     top: 225px;
 }
+/* pantalla de nivel completado */
+#nivel-completado {
+    display: none;
+}

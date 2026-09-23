@@ -43,6 +43,14 @@ botonReiniciar.addEventListener("click", function() {
 
     // quitamos la pausa
     juegoPausado = false;
+    // indicamos que el nivel aun no esta completado
+    nivelCompletado = false;
+
+    // permitimos que el juego vuelva a funcionar
+    juegoTerminado = false;
+
+    // ocultamos la pantalla de nivel completado
+    document.getElementById("nivel-completado").style.display = "none";
 
     // ocultamos el menu de pausa
     menuPausa.style.display = "none";

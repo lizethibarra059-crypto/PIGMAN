@@ -17,6 +17,8 @@ const sonidoPortal = document.getElementById("sonido-portal");
 const sonidoComerEnemigo = document.getElementById("sonido-comer-enemigo");
 // sonido de game over
 const sonidoGameOver = document.getElementById("sonido-game-over");
+// sonido al completar el nivel
+const sonidoGanarNivel = document.getElementById("sonido-ganar-nivel");
 // boton para volver a intentar la partida
 const botonReintentar = document.getElementById("reintentar");
 // boton para volver a la pantalla de inicio
@@ -82,6 +84,8 @@ function hayColision(nuevaX, nuevaY) {
 document.addEventListener("keydown", function(evento) {
         // si el juego esta pausado pigman no se puede mover
     if (juegoPausado) return;
+    // si el juego termino pigman no se puede mover
+    if (juegoTerminado) return;
 
     let nuevaX = posicionX;
     let nuevaY = posicionY;
@@ -163,6 +167,8 @@ let vidas = 3;
 let pigmanPerdiendoVida = false;
 // indica si la partida termino
 let juegoTerminado = false;
+// indica si pigman completo el nivel
+let nivelCompletado = false;
 function perderVida() {
 
     // si el juego ya termino no quitamos mas vidas
@@ -489,9 +495,45 @@ function recogerHamburguesas() {
 
            // actualizamos el marcador
            document.getElementById("marcador").textContent = "puntos: " + puntos;
+           // comprobamos si ya recogimos todas las hamburguesas
+           comprobarNivelCompletado();
         }
 
     });
+}
+// comprobamos si pigman recogio todas las hamburguesas
+function comprobarNivelCompletado() {
+
+    const hamburguesas = document.querySelectorAll(".hamburguesa");
+
+    let hamburguesasRestantes = 0;
+
+    hamburguesas.forEach(function(hamburguesa) {
+
+        if (hamburguesa.style.display !== "none") {
+            hamburguesasRestantes++;
+        }
+
+    });
+   
+    if (hamburguesasRestantes === 0 && !nivelCompletado) {
+
+        nivelCompletado = true;
+        // detenemos el juego
+        juegoTerminado = true;
+        // detenemos la musica de fondo
+        musicaFondo.pause();
+
+       // reproducimos el sonido de nivel completado
+       sonidoGanarNivel.currentTime = 0;
+       sonidoGanarNivel.play();
+
+        // mostramos la pantalla de nivel completado
+        document.getElementById("nivel-completado").style.display = "block";
+
+        console.log("nivel completado");
+
+    }
 }
 
 // movimiento de la zanahoria
@@ -1547,6 +1589,11 @@ botonReintentar.addEventListener("click", function() {
 
     // permitimos que la partida vuelva a funcionar
     juegoTerminado = false;
+    // indicamos que el nivel aun no esta completado
+    nivelCompletado = false;
+
+    // ocultamos la pantalla de nivel completado
+    document.getElementById("nivel-completado").style.display = "none";
     // regresamos las vidas a 3
     vidas = 3;
     // regresamos los puntos a 0
@@ -1590,6 +1637,11 @@ botonVolverInicio.addEventListener("click", function() {
     document.getElementById("game-over").style.display = "none";
     // dejamos el juego preparado para comenzar nuevamente
     juegoTerminado = false;
+    // indicamos que el nivel aun no esta completado
+    nivelCompletado = false;
+
+    // ocultamos la pantalla de nivel completado
+    document.getElementById("nivel-completado").style.display = "none";
     // permitimos que pigman vuelva a perder vidas
     pigmanPerdiendoVida = false;
     // regresamos las vidas a 3
