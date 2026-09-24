@@ -132,9 +132,8 @@ if (evento.key === "ArrowRight") {
 }
 
     // tamaño del laberinto
-    const anchoLaberinto = 900;
-    const altoLaberinto = 500;
-
+    const anchoLaberinto = document.getElementById("laberinto").clientWidth;
+    const altoLaberinto = document.getElementById("laberinto").clientHeight;
    // comprobamos que pigman no salga del laberinto
    if (
         nuevaX >= 0 &&
