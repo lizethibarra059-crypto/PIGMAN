@@ -29,7 +29,7 @@ botonIniciar.addEventListener("click", function() {
 
     // inicia la musica
     musicaFondo.volume = 0.4;
-    musicaFondo.play();
+    musicaFondo.play(); 
 });
 // posicion inicial de pigman
 let posicionX = 425;
@@ -169,6 +169,12 @@ let pigmanPerdiendoVida = false;
 let juegoTerminado = false;
 // indica si pigman completo el nivel
 let nivelCompletado = false;
+// nivel en el que se encuentra pigman
+let nivelActual = 1;
+// actualizamos el nivel en pantalla
+function actualizarNivel() {
+    document.getElementById("nivel").textContent = "nivel: " + nivelActual;
+}
 function perderVida() {
 
     // si el juego ya termino no quitamos mas vidas
@@ -515,12 +521,14 @@ function comprobarNivelCompletado() {
         }
 
     });
-   
+    
     if (hamburguesasRestantes === 0 && !nivelCompletado) {
 
         nivelCompletado = true;
         // detenemos el juego
         juegoTerminado = true;
+        // ocultamos la pantalla de game over
+        document.getElementById("game-over").style.display = "none";
         // detenemos la musica de fondo
         musicaFondo.pause();
 
@@ -530,6 +538,18 @@ function comprobarNivelCompletado() {
 
         // mostramos la pantalla de nivel completado
         document.getElementById("nivel-completado").style.display = "block";
+        // si terminamos el nivel 3 cambiamos la pantalla final
+        if (nivelActual === 3) {
+
+            document.querySelector("#nivel-completado h2").textContent =
+              "¡JUEGO COMPLETADO!";
+
+            document.querySelector("#nivel-completado p").textContent =
+               "¡Felicidades! Completaste PIGMAN";
+
+            botonSiguienteNivel.style.display = "none";
+            document.getElementById("boton-fin-inicio").style.display = "inline-block";
+        }
 
         console.log("nivel completado");
 
@@ -544,7 +564,7 @@ let zanahoriaX = 300;
 let zanahoriaY = 110;
 
 // velocidad de la zanahoria
-const velocidadZanahoria = 2;
+let velocidadZanahoria = 2;
 
 // direccion inicial
 let direccionZanahoria = "derecha";
@@ -766,7 +786,7 @@ const brocoli = document.getElementById("brocoli");
 let brocoliX = 370;
 let brocoliY = 110;
 // velocidad del brocoli
-const velocidadBrocoli = 2;
+let velocidadBrocoli = 2;
 // direccion inicial
 let direccionBrocoli = "derecha";
 // funcion para comprobar las colisiones del brocoli
@@ -1018,7 +1038,7 @@ let jitomateX = 440;
 let jitomateY = 110;
 
 // velocidad del jitomate
-const velocidadJitomate = 2;
+let velocidadJitomate = 2;
 
 // tamaño visual del jitomate
 const tamanoJitomate = 50;
@@ -1301,7 +1321,25 @@ let lechugaX = 510;
 let lechugaY = 110;
 
 // velocidad de la lechuga
-const velocidadLechuga = 2;
+let velocidadLechuga = 2;
+// configuramos la velocidad de los enemigos segun el nivel
+function configurarVelocidadEnemigos(nivel) {
+
+    let nuevaVelocidad = 2;
+
+    if (nivel === 2) {
+        nuevaVelocidad = 2.5;
+    }
+
+    if (nivel === 3) {
+        nuevaVelocidad = 3;
+    }
+
+    velocidadZanahoria = nuevaVelocidad;
+    velocidadBrocoli = nuevaVelocidad;
+    velocidadJitomate = nuevaVelocidad;
+    velocidadLechuga = nuevaVelocidad;
+}
 
 // direccion inicial
 let direccionLechuga = "derecha";
@@ -1584,6 +1622,9 @@ setInterval(function() {
     comprobarColisionEnemigos();
 
 }, 30);
+// boton para pasar al siguiente nivel
+const botonSiguienteNivel = document.getElementById("boton-siguiente-nivel");
+const botonFinInicio = document.getElementById("boton-fin-inicio");
 // reiniciamos la partida al presionar reintentar
 botonReintentar.addEventListener("click", function() {
 
@@ -1614,6 +1655,8 @@ botonReintentar.addEventListener("click", function() {
     // hacemos aparecer nuevamente el corazon
     document.getElementById("corazon").style.display = "block";
 });
+// configuramos las sodas segun el nivel actual
+configurarSodas(nivelActual);
 
     // actualizamos las vidas en pantalla
     document.getElementById("vidas").textContent = "vidas: " + vidas;
@@ -1639,6 +1682,21 @@ botonVolverInicio.addEventListener("click", function() {
     juegoTerminado = false;
     // indicamos que el nivel aun no esta completado
     nivelCompletado = false;
+    // eliminamos las hamburguesas extra de los niveles anteriores
+    document.querySelectorAll(".hamburguesa-extra").forEach(function(hamburguesa) {
+      hamburguesa.remove();
+   });
+    // regresamos al nivel 1
+    nivelActual = 1;
+
+    // actualizamos el nivel en pantalla
+    actualizarNivel();
+
+   // regresamos la velocidad de los enemigos al nivel 1
+   configurarVelocidadEnemigos(nivelActual);
+
+   // configuramos nuevamente las sodas del nivel 1
+   configurarSodas(nivelActual);
 
     // ocultamos la pantalla de nivel completado
     document.getElementById("nivel-completado").style.display = "none";
@@ -1677,4 +1735,116 @@ botonVolverInicio.addEventListener("click", function() {
     // mostramos la pantalla de inicio
     pantallaInicio.style.display = "block";
 
+});
+// pasamos al siguiente nivel
+botonSiguienteNivel.addEventListener("click", function() {
+
+    // aumentamos el nivel
+    nivelActual++;
+
+    // actualizamos el nivel en pantalla
+    actualizarNivel();
+    // reiniciamos los puntos para el nuevo nivel
+    puntos = 0;
+
+    // actualizamos los puntos en pantalla
+    document.getElementById("marcador").textContent = "puntos: " + puntos;
+    // reiniciamos las vidas para el nuevo nivel
+    vidas = 3;
+
+    // actualizamos las vidas en pantalla
+    document.getElementById("vidas").textContent = "vidas: " + vidas;
+    // mostramos nuevamente el corazon
+    document.getElementById("corazon").style.display = "block";
+
+    // permitimos que pigman vuelva a perder vidas
+    pigmanPerdiendoVida = false;
+
+    // indicamos que el nuevo nivel aun no esta completado
+    nivelCompletado = false;
+
+    // permitimos que el juego vuelva a funcionar
+    juegoTerminado = false;
+    // reiniciamos la musica del nuevo nivel
+    musicaFondo.currentTime = 0;
+
+    if (sonidoActivado) {
+       musicaFondo.play();
+    }
+
+    // ocultamos la pantalla de nivel completado
+    document.getElementById("nivel-completado").style.display = "none";
+    // mostramos nuevamente todas las hamburguesas
+    document.querySelectorAll(".hamburguesa").forEach(function(hamburguesa) {
+       hamburguesa.style.display = "block";
+   });
+   // agregamos las hamburguesas extra del nuevo nivel
+    agregarHamburguesasExtra(nivelActual);
+    // configuramos las sodas del nuevo nivel
+    configurarSodas(nivelActual);
+    // configuramos la velocidad de los enemigos
+    configurarVelocidadEnemigos(nivelActual);
+
+    // regresamos a pigman y enemigos a sus posiciones iniciales
+    reiniciarPosiciones();
+
+});
+botonFinInicio.addEventListener("click", function() {
+
+    // ocultamos la pantalla del juego
+    document.getElementById("pantalla-juego").style.display = "none";
+
+    // ocultamos la pantalla de nivel completado
+    document.getElementById("nivel-completado").style.display = "none";
+
+    // mostramos nuevamente la portada
+    document.querySelector(".juego").style.display = "block";
+
+    // detenemos la musica
+    musicaFondo.pause();
+    musicaFondo.currentTime = 0;
+    // eliminamos las hamburguesas extra
+document.querySelectorAll(".hamburguesa-extra").forEach(function(hamburguesa) {
+    hamburguesa.remove();
+});
+
+// regresamos al nivel 1
+nivelActual = 1;
+actualizarNivel();
+
+// reiniciamos puntos y vidas
+puntos = 0;
+vidas = 3;
+
+document.getElementById("marcador").textContent = "puntos: " + puntos;
+document.getElementById("vidas").textContent = "vidas: " + vidas;
+
+// mostramos nuevamente los objetos del nivel 1
+document.querySelectorAll(".hamburguesa").forEach(function(hamburguesa) {
+    hamburguesa.style.display = "block";
+});
+
+configurarSodas(1);
+document.getElementById("corazon").style.display = "block";
+
+// regresamos la velocidad de los enemigos al nivel 1
+configurarVelocidadEnemigos(1);
+
+// reiniciamos las posiciones
+reiniciarPosiciones();
+
+// permitimos jugar nuevamente
+juegoTerminado = false;
+nivelCompletado = false;
+pigmanPerdiendoVida = false;
+
+// restauramos la pantalla de nivel completado
+document.querySelector("#nivel-completado h2").textContent =
+    "¡NIVEL COMPLETADO!";
+
+document.querySelector("#nivel-completado p").textContent =
+    "¡Muy bien!";
+
+botonSiguienteNivel.style.display = "inline-block";
+botonFinInicio.style.display = "none";
 });

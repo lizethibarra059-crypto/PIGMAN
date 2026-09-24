@@ -73,6 +73,8 @@ botonReiniciar.addEventListener("click", function() {
    document.querySelectorAll(".soda").forEach(function(soda) {
      soda.style.display = "block";
     });
+    // configuramos las sodas segun el nivel actual
+    configurarSodas(nivelActual);
 
    // mostramos nuevamente el corazon
    document.getElementById("corazon").style.display = "block";

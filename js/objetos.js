@@ -117,3 +117,88 @@ crearCaminoVertical(780, 25, 340, 40);
 crearCaminoVertical(340, 220, 300, 40);
 // entrada derecha hacia el interior
 crearCaminoVertical(460, 220, 300, 40);
+// creamos una hamburguesa en una posicion especifica
+function crearHamburguesaExtra(x, y) {
+
+    const hamburguesa = document.createElement("div");
+
+    hamburguesa.classList.add("hamburguesa");
+    hamburguesa.classList.add("hamburguesa-extra");
+
+    hamburguesa.style.left = x + "px";
+    hamburguesa.style.top = y + "px";
+
+    contenedorHamburguesas.appendChild(hamburguesa);
+}
+// agregamos hamburguesas extra segun el nivel
+function agregarHamburguesasExtra(nivel) {
+
+    // guardamos cuantas hamburguesas habia antes
+    const cantidadAnterior = document.querySelectorAll(".hamburguesa").length;
+
+    if (nivel === 2) {
+
+        // hamburguesas antes de la soda
+        crearCaminoHorizontal(100, 100, 110, 50);
+
+        // hamburguesas despues de la soda
+        crearCaminoHorizontal(200, 700, 110, 50);
+    }
+
+    if (nivel === 3) {
+
+        // conservamos las hamburguesas extra del nivel 2
+       crearCaminoHorizontal(100, 100, 110, 50);
+       crearCaminoHorizontal(200, 700, 110, 50);
+       // camino vertical izquierdo
+      crearHamburguesaExtra(120, 220);
+      crearHamburguesaExtra(120, 265);
+      crearHamburguesaExtra(120, 310);
+
+      // camino vertical derecho
+      crearHamburguesaExtra(700, 220);
+      crearHamburguesaExtra(700, 265);
+      crearHamburguesaExtra(700, 310);
+
+
+      // camino inferior izquierdo
+      crearCaminoHorizontal(20, 300, 440, 40);
+
+      // camino inferior derecho
+      crearCaminoHorizontal(500, 780, 440, 40);
+    }
+
+    // marcamos solamente las hamburguesas nuevas como extra
+    const hamburguesas = document.querySelectorAll(".hamburguesa");
+
+    for (let i = cantidadAnterior; i < hamburguesas.length; i++) {
+        hamburguesas[i].classList.add("hamburguesa-extra");
+    }
+}
+// configuramos las sodas segun el nivel
+function configurarSodas(nivel) {
+
+    const sodas = document.querySelectorAll(".soda");
+
+    // primero mostramos todas las sodas
+    sodas.forEach(function(soda) {
+        soda.style.display = "block";
+    });
+
+    // nivel 2 tiene una soda menos
+    if (nivel === 2 && sodas.length > 0) {
+        sodas[sodas.length - 1].style.display = "none";
+    }
+
+    // nivel 3 tiene dos sodas menos
+    if (nivel === 3) {
+
+        if (sodas.length > 0) {
+            sodas[sodas.length - 1].style.display = "none";
+        }
+
+        if (sodas.length > 1) {
+            sodas[sodas.length - 2].style.display = "none";
+        }
+    }
+}
