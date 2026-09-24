@@ -414,7 +414,17 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     z-index: 5;
-    animation: animacionSoda 1.5s ease-in-out infinite;
+   animation: flotarSoda 1.5s ease-in-out infinite;
+}
+/* animacion de las sodas */
+@keyframes flotarSoda {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
 }
 
 /* posiciones provisionales */
@@ -484,6 +494,17 @@ body {
     left: 425px;
     top: 250px;
     z-index: 5;
+    animation: latidoCorazon 1s ease-in-out infinite;
+}
+/* animacion del corazon */
+@keyframes latidoCorazon {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
 }
 
 /* cercas horizontales */
@@ -562,6 +583,17 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     z-index: 6;
+    animation: pulsoPortal 1.3s ease-in-out infinite;
+}
+/* animacion de los portales */
+@keyframes pulsoPortal {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
 }
 
 /* portal izquierdo */
@@ -694,4 +726,26 @@ body {
 #boton-fin-inicio:active {
     transform: translateY(2px);
     box-shadow: 0 1px 0 #6b3e1e;
+}
+/* letra del marcador */
+#marcador,
+#vidas,
+#nivel {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+/* pequeño rebote de pigman al caminar */
+@keyframes caminarPigman {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+.pigman-caminando {
+    animation: caminarPigman 0.4s ease-in-out;
 }

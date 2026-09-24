@@ -149,6 +149,14 @@ if (evento.key === "ArrowRight") {
     // actualizamos la posicion de pigman
     document.getElementById("pigman").style.left = posicionX + "px";
     document.getElementById("pigman").style.top = posicionY + "px";
+    // hacemos un pequeño rebote cuando pigman camina
+    const pigman = document.getElementById("pigman");
+
+    pigman.classList.remove("pigman-caminando");
+
+    void pigman.offsetWidth;
+
+    pigman.classList.add("pigman-caminando");
 
     // comprobamos si pigman recogio una hamburguesa
     recogerHamburguesas();
